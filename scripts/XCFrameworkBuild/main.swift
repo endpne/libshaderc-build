@@ -1,8 +1,9 @@
 import Foundation
 
 do {
-    try Build.performCommand(arguments: Array(CommandLine.arguments.dropFirst()))
-
+    let options = try ArgumentOptions.parse(CommandLine.arguments)
+    try Build.performCommand(options)
+    
     try BuildShaderc().buildALL()
 } catch {
     print(error.localizedDescription)
