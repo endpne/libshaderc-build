@@ -75,23 +75,6 @@ private class BuildShaderc: BaseBuild {
             """)
             try! str.write(toFile: path.path, atomically: true, encoding: .utf8)
         }
-
-        // change libshaderc_combined.pc to libshaderc.pc as default pkgconfig file
-        // otherwise [libplacebo] will load shaderc failed
-        path = directoryURL + "CMakeLists.txt"
-        if let data = FileManager.default.contents(atPath: path.path), var str = String(data: data, encoding: .utf8) {
-            str = str.replacingOccurrences(of: """
-            define_pkg_config_file(shaderc -lshaderc_shared)
-            """, with: """
-            define_pkg_config_file(shaderc_shared -lshaderc_shared)
-            """)
-            str = str.replacingOccurrences(of: """
-            define_pkg_config_file(shaderc_combined -lshaderc_combined)
-            """, with: """
-            define_pkg_config_file(shaderc -lshaderc_combined)
-            """)
-            try! str.write(toFile: path.path, atomically: true, encoding: .utf8)
-        }
     }
 
     override func arguments(platform: PlatformType, arch: ArchType) -> [String] {
@@ -111,6 +94,25 @@ private class BuildShaderc: BaseBuild {
         ["libshaderc_combined"]
     }
 
-    override func buildALL() throws {
+    override func packagePkgConfigRelease() throws {
+        try super.packagePkgConfigRelease()
+
+        // change libshaderc_combined.pc to libshaderc.pc as default pkgconfig file
+        // otherwise [libplacebo] will load shaderc failed
+        let releaseDirPath = URL.currentDirectory + ["release"]
+        for platform in BaseBuild.platforms {
+            for arch in architectures(platform) {
+                let destPkgConfigDir = releaseDirPath + [library.rawValue, "pkgconfig-example", platform.rawValue, arch.rawValue]
+                let shadercPC = destPkgConfigDir + "shaderc.pc"
+                let shadercSharedPC = destPkgConfigDir + "shaderc_shared.pc"
+                let shadercCombinedPC = destPkgConfigDir + "shaderc_combined.pc"
+                if !FileManager.default.fileExists(atPath: shadercPC.path) {
+                    continue
+                }
+
+                try FileManager.default.moveItem(at: shadercPC, to: shadercSharedPC)
+                try FileManager.default.moveItem(at: shadercCombinedPC, to: shadercPC)
+            }
+        }
     }
 }

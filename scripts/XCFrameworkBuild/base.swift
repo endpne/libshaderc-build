@@ -131,14 +131,14 @@ class BaseBuild {
     }
 
     func buildALL() throws {
-        try? FileManager.default.removeItem(at: URL.currentDirectory + library.rawValue)
-        try? FileManager.default.removeItem(at: directoryURL.appendingPathExtension("log"))
-        for platform in BaseBuild.platforms {
-            for arch in architectures(platform) {
-                try build(platform: platform, arch: arch)
-            }
-        }
-        try createXCFramework()
+        // try? FileManager.default.removeItem(at: URL.currentDirectory + library.rawValue)
+        // try? FileManager.default.removeItem(at: directoryURL.appendingPathExtension("log"))
+        // for platform in BaseBuild.platforms {
+        //     for arch in architectures(platform) {
+        //         try build(platform: platform, arch: arch)
+        //     }
+        // }
+        // try createXCFramework()
         try packageRelease()
     }
 
@@ -559,27 +559,7 @@ class BaseBuild {
 
 
         // copy pkg-config file example
-        for platform in BaseBuild.platforms {
-            for arch in architectures(platform) {
-                let thinLibPath = thinDir(platform: platform, arch: arch) + ["lib"]
-                let pkgconfigPath = thinLibPath + ["pkgconfig"]
-                if !FileManager.default.fileExists(atPath: pkgconfigPath.path) {
-                    continue
-                }
-                let destPkgConfigDir = releaseDirPath + [library.rawValue, "pkgconfig-example", platform.rawValue]
-                let destPkgConfigPath = destPkgConfigDir + arch.rawValue
-                try? FileManager.default.createDirectory(at: destPkgConfigDir, withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.copyItem(at: pkgconfigPath, to: destPkgConfigPath)
-
-                let pkgconfigFiles = Utility.listAllFiles(in: destPkgConfigPath)
-                for file in pkgconfigFiles {
-                    if let data = FileManager.default.contents(atPath: file.path), var str = String(data: data, encoding: .utf8) {
-                        str = str.replacingOccurrences(of: URL.currentDirectory.path, with: "/path/to/workdir")
-                        try! str.write(toFile: file.path, atomically: true, encoding: .utf8)
-                    }
-                }
-            }
-        }
+        try packagePkgConfigRelease()
 
         // zip build artifacts when there are frameworks to generate
         if try self.frameworks().count > 0 {
@@ -620,6 +600,32 @@ class BaseBuild {
                         let checksumFile = releaseDirPath + [XCFrameworkName + ".xcframework.checksum.txt"]
                         try Utility.launch(path: "/usr/bin/zip", arguments: ["-qr", zipFile.path, XCFrameworkFile], currentDirectoryURL: URL.currentDirectory + ["../Sources"])
                         Utility.shell("swift package compute-checksum \(zipFile.path) > \(checksumFile.path)")
+                    }
+                }
+            }
+        }
+    }
+
+    func packagePkgConfigRelease() throws {
+        let releaseDirPath = URL.currentDirectory + ["release"]
+        // copy pkg-config file example
+        for platform in BaseBuild.platforms {
+            for arch in architectures(platform) {
+                let thinLibPath = thinDir(platform: platform, arch: arch) + ["lib"]
+                let pkgconfigPath = thinLibPath + ["pkgconfig"]
+                if !FileManager.default.fileExists(atPath: pkgconfigPath.path) {
+                    continue
+                }
+                let destPkgConfigDir = releaseDirPath + [library.rawValue, "pkgconfig-example", platform.rawValue]
+                let destPkgConfigPath = destPkgConfigDir + arch.rawValue
+                try? FileManager.default.createDirectory(at: destPkgConfigDir, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.copyItem(at: pkgconfigPath, to: destPkgConfigPath)
+
+                let pkgconfigFiles = Utility.listAllFiles(in: destPkgConfigPath)
+                for file in pkgconfigFiles {
+                    if let data = FileManager.default.contents(atPath: file.path), var str = String(data: data, encoding: .utf8) {
+                        str = str.replacingOccurrences(of: URL.currentDirectory.path, with: "/path/to/workdir")
+                        try! str.write(toFile: file.path, atomically: true, encoding: .utf8)
                     }
                 }
             }
