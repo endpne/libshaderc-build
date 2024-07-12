@@ -26,23 +26,23 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Libshaderc",
-            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.1/Libshaderc_combined.xcframework.zip",
-            checksum: "4d1bb38405e9bfe6983588b6413352486a2c04ddebf7e377d316ec534f0f9ba5"
+            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.0/Libshaderc_combined.xcframework.zip",
+            checksum: "48a512e3f4041c73c62e043f537d27de63022bf553b7238d4716b27e8148cbe4"
         ),
         .binaryTarget(
             name: "Libshaderc-ios",
-            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.1/Libshaderc_combined-ios.xcframework.zip",
-            checksum: "6de2d04365cf132a2a6ea13c7ae8d60a51779dc1e1ccddd21c022c0a8bb08e38"
+            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.0/Libshaderc_combined-ios.xcframework.zip",
+            checksum: "a6c316c6840f5834b41f51c4adc06844c9bb81489985d010d3fe23aeb9c00404"
         ),
         .binaryTarget(
             name: "Libshaderc-tvos",
-            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.1/Libshaderc_combined-tvos.xcframework.zip",
-            checksum: "726212fc18ba1354e3a4649cc248de799ef91cfe49fa112157b64195271d6f1f"
+            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.0/Libshaderc_combined-tvos.xcframework.zip",
+            checksum: "aaf72ff06a58cec71e759a8e428edab77382512159d6803076efb4fd1cf15f99"
         ),
         .binaryTarget(
             name: "Libshaderc-macos",
-            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.1/Libshaderc_combined-macos.xcframework.zip",
-            checksum: "b5877467bd64ce676fa285855f835c019e50144476a49236af158f1b16aace4a"
+            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.0/Libshaderc_combined-macos.xcframework.zip",
+            checksum: "21383127c9eae9bf4f7719fec104864ede7dbc910adb5c853534a0d1705efb63"
         )
     ]
 )
