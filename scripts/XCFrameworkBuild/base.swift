@@ -131,14 +131,14 @@ class BaseBuild {
     }
 
     func buildALL() throws {
-        // try? FileManager.default.removeItem(at: URL.currentDirectory + library.rawValue)
-        // try? FileManager.default.removeItem(at: directoryURL.appendingPathExtension("log"))
-        // for platform in BaseBuild.platforms {
-        //     for arch in architectures(platform) {
-        //         try build(platform: platform, arch: arch)
-        //     }
-        // }
-        // try createXCFramework()
+        try? FileManager.default.removeItem(at: URL.currentDirectory + library.rawValue)
+        try? FileManager.default.removeItem(at: directoryURL.appendingPathExtension("log"))
+        for platform in BaseBuild.platforms {
+            for arch in architectures(platform) {
+                try build(platform: platform, arch: arch)
+            }
+        }
+        try createXCFramework()
         try packageRelease()
     }
 
