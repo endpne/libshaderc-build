@@ -1,3 +1,5 @@
+# make only accept argument format: xxxx=xxxx, other format will treat as a target.
+# add [enable-split-platform enable-debug enable-gpl] to .PHONY can ignore target not exist error.
 .PHONY: help build clean enable-split-platform enable-debug enable-gpl
 
 help:

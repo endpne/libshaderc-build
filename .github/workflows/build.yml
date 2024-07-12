@@ -24,7 +24,7 @@ jobs:
 
     - name: Build
       run: |
-        make build enable-split-platform platforms=macos
+        make build enable-split-platform
     
     - name: Update Package.swift
       run: |
