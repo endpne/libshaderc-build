@@ -1,4 +1,4 @@
-.PHONY: help build clean
+.PHONY: help build clean enable-split-platform enable-debug enable-gpl
 
 help:
 	@echo "Usage: make [target]"

@@ -23,7 +23,8 @@ jobs:
         brew install libtool
 
     - name: Build
-      run: make build enable-split-platform platforms=macos
+      run: |
+        make build enable-split-platform platforms=macos
     
     - name: Update Package.swift
       run: |
