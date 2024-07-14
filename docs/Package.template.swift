@@ -12,37 +12,50 @@ let package = Package(
         ),
         .library(
             name: "Libshaderc-ios", 
-            targets: ["Libshaderc-ios"]
+            targets: ["_Libshaderc-ios"]
         ),
         .library(
             name: "Libshaderc-tvos", 
-            targets: ["Libshaderc-tvos"]
+            targets: ["_Libshaderc-tvos"]
         ),
         .library(
             name: "Libshaderc-macos", 
-            targets: ["Libshaderc-macos"]
+            targets: ["_Libshaderc-macos"]
+        ),
+        .library(
+            name: "Libshaderc-xros", 
+            targets: ["_Libshaderc-xros"]
         ),
     ],
     targets: [
-        .binaryTarget(
-            name: "Libshaderc",
-            url: "\(Libshaderc_url)",
-            checksum: "\(Libshaderc_checksum)"
+        // Need a dummy target to embedded correctly.
+        // https://github.com/apple/swift-package-manager/issues/6069
+        .target(
+            name: "_Libshaderc",
+            dependencies: ["Libshaderc"],
+            path: "Sources/_Dummy"
         ),
-        .binaryTarget(
-            name: "Libshaderc-ios",
-            url: "\(Libshaderc_ios_url)",
-            checksum: "\(Libshaderc_ios_checksum)"
+        .target(
+            name: "_Libshaderc-ios",
+            dependencies: ["Libshaderc-ios"],
+            path: "Sources/_Dummy"
         ),
-        .binaryTarget(
-            name: "Libshaderc-tvos",
-            url: "\(Libshaderc_tvos_url)",
-            checksum: "\(Libshaderc_tvos_checksum)"
+        .target(
+            name: "_Libshaderc-tvos",
+            dependencies: ["Libshaderc-tvos"],
+            path: "Sources/_Dummy"
         ),
-        .binaryTarget(
-            name: "Libshaderc-macos",
-            url: "\(Libshaderc_macos_url)",
-            checksum: "\(Libshaderc_macos_checksum)"
-        )
+        .target(
+            name: "_Libshaderc-macos",
+            dependencies: ["Libshaderc-macos"],
+            path: "Sources/_Dummy"
+        ),
+        .target(
+            name: "_Libshaderc-xros",
+            dependencies: ["Libshaderc-xros"],
+            path: "Sources/_Dummy"
+        ),
+        //AUTO_GENERATE_TARGETS_BEGIN//
+        //AUTO_GENERATE_TARGETS_END//
     ]
 )
