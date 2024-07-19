@@ -66,6 +66,12 @@ enum Library: String, CaseIterable {
 private class BuildShaderc: BaseBuild {
     init() {
         super.init(library: .libshaderc)
+        
+    }
+
+    override func beforeBuild() throws {
+        try super.beforeBuild()
+        
         try! Utility.launch(executableURL: directoryURL + "utils/git-sync-deps", arguments: [], currentDirectoryURL: directoryURL)
         var path = directoryURL + "third_party/spirv-tools/tools/reduce/reduce.cpp"
         if let data = FileManager.default.contents(atPath: path.path), var str = String(data: data, encoding: .utf8) {
