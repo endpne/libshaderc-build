@@ -131,7 +131,7 @@ private class BuildShaderc: BaseBuild {
     }
 
     override func frameworks() throws -> [String] {
-        ["libshaderc_combined"]
+        ["libshaderc-combined"]
     }
 
     override func packagePkgConfigRelease() throws {

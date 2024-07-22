@@ -384,7 +384,15 @@ class BaseBuild {
             let libname = framework.hasPrefix("lib") || framework.hasPrefix("Lib") ? framework : "lib" + framework
             var libPath = prefix + ["lib", "\(libname).a"]
             if !FileManager.default.fileExists(atPath: libPath.path) {
+                let name = libname.replacingOccurrences(of: "-", with: "_")
+                libPath = prefix + ["lib", "\(name).a"]
+            }
+            if !FileManager.default.fileExists(atPath: libPath.path) {
                 libPath = prefix + ["lib", "\(libname).dylib"]
+            }
+            if !FileManager.default.fileExists(atPath: libPath.path) {
+                let name = libname.replacingOccurrences(of: "-", with: "_")
+                libPath = prefix + ["lib", "\(name).dylib"]
             }
             arguments.append(libPath.path)
             var headerURL: URL = prefix + "include" + framework
