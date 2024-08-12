@@ -33,29 +33,9 @@ enum Library: String, CaseIterable {
         case .libshaderc:
             return  [
                 .target(
-                    name: "Libshaderc",
-                    url: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc.xcframework.checksum.txt"
-                ),
-                .target(
-                    name: "Libshaderc-ios",
-                    url: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-ios.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-ios.xcframework.checksum.txt"
-                ),
-                .target(
-                    name: "Libshaderc-tvos",
-                    url: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-tvos.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-tvos.xcframework.checksum.txt"
-                ),
-                .target(
-                    name: "Libshaderc-macos",
-                    url: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-macos.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-macos.xcframework.checksum.txt"
-                ),
-                .target(
-                    name: "Libshaderc-xros",
-                    url: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-xros.xcframework.zip",
-                    checksum: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc-xros.xcframework.checksum.txt"
+                    name: "Libshaderc_combined",
+                    url: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc_combined.xcframework.zip",
+                    checksum: "https://github.com/mpvkit/libshaderc-build/releases/download/\(BaseBuild.options.releaseVersion)/Libshaderc_combined.xcframework.checksum.txt"
                 ),
             ]
         }
