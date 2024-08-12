@@ -7,55 +7,25 @@ let package = Package(
     platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13)],
     products: [
         .library(
-            name: "Libshaderc", 
-            targets: ["Libshaderc"]
-        ),
-        .library(
-            name: "Libshaderc-ios", 
-            targets: ["_Libshaderc-ios"]
-        ),
-        .library(
-            name: "Libshaderc-tvos", 
-            targets: ["_Libshaderc-tvos"]
-        ),
-        .library(
-            name: "Libshaderc-macos", 
-            targets: ["_Libshaderc-macos"]
-        ),
-        .library(
-            name: "Libshaderc-xros", 
-            targets: ["_Libshaderc-xros"]
+            name: "Libshaderc_combined", 
+            targets: ["Libshaderc_combined"]
         ),
     ],
     targets: [
         // Need a dummy target to embedded correctly.
         // https://github.com/apple/swift-package-manager/issues/6069
         .target(
-            name: "_Libshaderc",
-            dependencies: ["Libshaderc"],
-            path: "Sources/_Dummy"
-        ),
-        .target(
-            name: "_Libshaderc-ios",
-            dependencies: ["Libshaderc-ios"],
-            path: "Sources/_Dummy"
-        ),
-        .target(
-            name: "_Libshaderc-tvos",
-            dependencies: ["Libshaderc-tvos"],
-            path: "Sources/_Dummy"
-        ),
-        .target(
-            name: "_Libshaderc-macos",
-            dependencies: ["Libshaderc-macos"],
-            path: "Sources/_Dummy"
-        ),
-        .target(
-            name: "_Libshaderc-xros",
-            dependencies: ["Libshaderc-xros"],
+            name: "_Libshaderc_combined",
+            dependencies: ["Libshaderc_combined"],
             path: "Sources/_Dummy"
         ),
         //AUTO_GENERATE_TARGETS_BEGIN//
+
+        .binaryTarget(
+            name: "Libshaderc_combined",
+            url: "https://github.com/mpvkit/libshaderc-build/releases/download/2024.1.0/Libshaderc_combined.xcframework.zip",
+            checksum: "2a9d485336d64ac36d148c3ebc1194e980b36e6e8a419f03ed4e4b5bca7e2a9c"
+        ),
         //AUTO_GENERATE_TARGETS_END//
     ]
 )
