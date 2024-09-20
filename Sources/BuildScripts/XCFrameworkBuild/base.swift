@@ -475,7 +475,7 @@ class BaseBuild {
 
     // CFBundleIdentifier must contain only alphanumerics, dots, hyphens 
     private func normalizeBundleIdentifier(_ identifier: String) -> String {
-        return identifier.replacingOccurrences(of: "_", with: "")
+        return identifier.replacingOccurrences(of: "_", with: "-")
     }
 
 
