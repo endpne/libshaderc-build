@@ -20,7 +20,7 @@ jobs:
         brew install autoconf
         brew install automake
         brew install libtool
-        brew install meson
+        python -m pip install meson==1.4.2
         brew install ninja
 
     - name: Setup Xcode to support visionOS
@@ -79,6 +79,6 @@ jobs:
         files: |
           ./dist/release/*.txt
           ./dist/release/*.zip
-        prerelease: ${{ contains(env.RELEASE_VERSION, 'alpha') || contains(env.RELEASE_VERSION, 'beta') }}
+        prerelease: ${{ contains(env.RELEASE_VERSION, '-') }}
         generate_release_notes: true
         fail_on_unmatched_files: true
