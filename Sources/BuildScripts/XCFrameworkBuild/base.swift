@@ -220,6 +220,8 @@ class BaseBuild {
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_OSX_SYSROOT=\(platform.sdk.lowercased())",
                 "-DCMAKE_OSX_ARCHITECTURES=\(arch.rawValue)",
+                "-DCMAKE_SYSTEM_NAME=\(platform.cmakeSystemName)",
+                "-DCMAKE_SYSTEM_PROCESSOR=\(arch.rawValue)",
                 "-DCMAKE_INSTALL_PREFIX=\(thinDirPath)",
                 "-DBUILD_SHARED_LIBS=0",
             ]
@@ -950,6 +952,19 @@ enum PlatformType: String, CaseIterable {
             return "xros-simulator"
         default:
             return rawValue
+        }
+    }
+
+    var cmakeSystemName: String {
+        switch self {
+        case .ios, .isimulator:
+            return "iOS"
+        case .tvos, .tvsimulator:
+            return "tvOS"
+        case .macos, .maccatalyst:
+            return "Darwin"
+        case .xros, .xrsimulator:
+            return "visionOS"
         }
     }
 
